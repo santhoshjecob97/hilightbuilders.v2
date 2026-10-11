@@ -79,12 +79,12 @@ export default function About() {
             {
               name: site.founder,
               role: "Founder",
-              copy: "Leads the studio's vision, client relationships and the standard every project is held to. Approved biography and photograph will be published here.",
+              copy: "Leads the studio's vision, client relationships, and the uncompromising standard every project is held to across design and site execution.",
             },
             {
               name: site.operations,
               role: "Business Operations",
-              copy: "Runs project coordination, scheduling and client communication — the operational backbone from consultation to handover. Approved biography and photograph will be published here.",
+              copy: "Runs project coordination, scheduling, and client communication — the operational backbone ensuring transparent handovers from consultation onward.",
             },
           ].map((p, i) => (
             <Reveal key={p.name} delay={i * 0.1}>

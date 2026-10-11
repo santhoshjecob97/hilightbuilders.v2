@@ -36,6 +36,7 @@ A quality turnkey home interior typically takes 45 to 60 days of factory manufac
     category: "Home Interiors",
     coverImage: "/images/blueprint.jpg",
     published: true,
+    createdAt: "2026-03-10",
   },
   {
     slug: "modular-kitchen-decisions",
@@ -63,6 +64,7 @@ Ceiling lights alone cast annoying shadows when you lean over the counter. Alway
     category: "Kitchens",
     coverImage: "/images/kitchen.jpg",
     published: true,
+    createdAt: "2026-03-15",
   },
   {
     slug: "office-interior-planning",
@@ -85,5 +87,55 @@ Commercial fit-outs must meet non-negotiable inauguration dates. Turnkey plannin
     category: "Commercial",
     coverImage: "/images/office.jpg",
     published: true,
+    createdAt: "2026-03-20",
+  },
+  {
+    slug: "luxury-living-room-design-trends",
+    title: "Designing Contemporary Living Spaces: The Art of Layered Materials & Lighting",
+    excerpt:
+      "How natural fluted timbers, neutral bouclé textures, and indirect 2700K architectural lighting create understated luxury without clutter.",
+    content: `A truly luxurious living room is defined by how effortlessly it makes you feel at home. In contemporary Indian architecture, heavy ornate ornamentation has given way to tactile, refined materiality.
+
+### 1. Organic Material Harmony
+Combine contrasting textures to create visual warmth without unnecessary decorative pieces:
+- **Fluted Veneer Panels**: Conceals wiring and television consoles while adding vertical rhythm.
+- **Microcement or Travertine**: Ground the space with subtle earthy matte surfaces.
+- **Textured Linens & Bouclé**: Add depth and tactile comfort to seating.
+
+### 2. The Golden Rule of Three-Tier Lighting
+Avoid bright center ceiling glare. Instead, establish three distinct layers:
+1. **Architectural Cove**: Soft indirect perimeter lighting washing across ceilings.
+2. **Wall Grazer & Accent**: Directional narrow beams highlighting art and textured timber slats.
+3. **Low-Level Ambience**: Sculptural floor lamps and table lights for relaxed evening conversation.
+
+### 3. Integrated Concealed Storage
+Living rooms quickly gather clutter. Incorporate seamless push-to-open flush storage units painted to match surrounding wall finishes so storage remains invisible.`,
+    category: "Home Interiors",
+    coverImage: "/images/living-room.jpg",
+    published: true,
+    createdAt: "2026-03-25",
+  },
+  {
+    slug: "turnkey-civil-construction-guide-chennai",
+    title: "Turnkey Civil Construction in Chennai: Stage-by-Stage Milestones & Quality Benchmarks",
+    excerpt:
+      "A transparent breakdown of foundation soil testing, structural concrete pouring, brickwork insulation, and waterproofing standards for independent homes.",
+    content: `Building an independent villa or commercial property in Chennai requires stringent adherence to coastal-climate civil engineering standards.
+
+### 1. Geotechnical Soil Analysis & Foundation
+Never pour concrete without an accredited soil report. In Chennai's diverse terrains (from clay in Anna Nagar to sandy loam along ECR), foundation design — whether isolated footing, raft, or under-reamed pile — dictates long-term structural integrity.
+
+### 2. High-Grade Concrete & Curing Discipline
+Ensure design-mix M20 or M25 concrete with strict water-cement ratio control. Continuous 14-day water ponding curing for slabs prevents hairline shrinkage cracks.
+
+### 3. Advanced Thermal & Moisture Protection
+Chennai's tropical climate demands double-layer external waterproofing:
+- **Terrace Waterproofing**: Polyurethane or elastomeric membrane with reflective heat-resistant tiles.
+- **Sunken Slab Protection**: Double-coat polymer cementitious coating before pipe laying and light-weight cinders backfill.
+- **Insulated Wall Systems**: Porotherm hollow clay blocks reducing interior heat transfer by up to 4°C.`,
+    category: "Construction",
+    coverImage: "/images/construction.jpg",
+    published: true,
+    createdAt: "2026-04-02",
   },
 ];

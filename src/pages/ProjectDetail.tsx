@@ -6,12 +6,6 @@ import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
 import { PROJECTS } from "@/data/projects";
 
-const STATUS_LABELS: Record<string, string> = {
-  completed: "Completed Project",
-  in_progress: "Work in Progress",
-  concept: "Concept Visualisation",
-};
-
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const { data: dbProject, isLoading } = trpc.content.projects.bySlug.useQuery(
@@ -48,7 +42,7 @@ export default function ProjectDetail() {
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/50 to-charcoal/20" />
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-5 pb-14 sm:px-8 lg:px-12">
-          <p className="eyebrow">{STATUS_LABELS[project.status]}</p>
+          <p className="eyebrow capitalize">{project.category.replace("-", " ")}</p>
           <h1 className="display-1 mt-4 max-w-4xl !text-[clamp(2rem,5.5vw,4.2rem)] text-bone">
             {project.title}
           </h1>
@@ -63,7 +57,6 @@ export default function ProjectDetail() {
                 ["Project Type", project.category.replace("-", " ")],
                 ["Location", project.location],
                 ["Area", project.area],
-                ["Status", STATUS_LABELS[project.status]],
               ]
                 .filter(([, v]) => v)
                 .map(([k, v]) => (
@@ -92,12 +85,6 @@ export default function ProjectDetail() {
                 <h2 className="font-mono text-[11px] uppercase tracking-[0.28em] text-brand">Material Direction</h2>
                 <p className="mt-3 text-[16px] leading-relaxed text-bone/85">{project.materials}</p>
               </Reveal>
-            )}
-            {project.sample && (
-              <p className="border border-brand/30 bg-brand/5 p-4 font-mono text-[11px] leading-relaxed tracking-[0.06em] text-ash">
-                Sample concept — shown to demonstrate how projects will be presented. It is not a
-                completed HILIGHT BUILDERS project.
-              </p>
             )}
           </div>
         </div>

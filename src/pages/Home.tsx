@@ -328,9 +328,6 @@ function FeaturedProjects() {
           ))}
         </div>
       )}
-      <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.2em] text-ash/60">
-        Concept visualisations are labelled — they represent design direction, not completed sites.
-      </p>
     </Section>
   );
 }

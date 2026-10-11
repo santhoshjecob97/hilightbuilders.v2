@@ -12,12 +12,6 @@ export type ProjectCardData = {
   sample?: boolean;
 };
 
-const STATUS_LABEL: Record<ProjectCardData["status"], string> = {
-  completed: "Completed",
-  in_progress: "In Progress",
-  concept: "Concept Visualisation",
-};
-
 /** Portfolio card — image mask reveal, hover zoom, mono meta. */
 export function ProjectCard({
   project,
@@ -45,15 +39,6 @@ export function ProjectCard({
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-charcoal/70 via-transparent to-transparent" />
-          <span
-            className={`absolute left-4 top-4 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] ${
-              project.status === "concept"
-                ? "bg-charcoal/80 text-brand"
-                : "bg-brand text-charcoal"
-            }`}
-          >
-            {STATUS_LABEL[project.status]}
-          </span>
           <span className="absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center border border-white/25 bg-charcoal/50 text-bone opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100">
             <ArrowUpRight className="h-4 w-4" />
           </span>

@@ -4,7 +4,7 @@ import { ProjectCard, type ProjectCardData } from "@/components/ProjectCard";
 import { CtaBand } from "@/pages/Home";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
-import { PROJECT_CATEGORIES, PROJECT_STATUSES } from "@contracts/leads";
+import { PROJECT_CATEGORIES } from "@contracts/leads";
 import { PROJECTS } from "@/data/projects";
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -18,24 +18,16 @@ const CATEGORY_LABELS: Record<string, string> = {
   renovation: "Renovation",
 };
 
-const STATUS_LABELS: Record<string, string> = {
-  completed: "Completed",
-  in_progress: "In Progress",
-  concept: "Concept Visualisation",
-};
-
 export default function Portfolio() {
   useSeo(
     "Project Portfolio — Interiors & Construction in Chennai | HILIGHT BUILDERS",
-    "Explore residential and commercial interior projects, work in progress and clearly labelled concept visualisations by HILIGHT BUILDERS, Chennai.",
+    "Explore residential and commercial interior projects, modular kitchens and construction by HILIGHT BUILDERS, Chennai.",
   );
   const [category, setCategory] = useState<string>("all");
-  const [status, setStatus] = useState<string>("all");
 
   const queryResult = trpc.content.projects.list.useQuery(
     {
       ...(category !== "all" ? { category: category as never } : {}),
-      ...(status !== "all" ? { status: status as never } : {}),
     },
     { retry: false }
   );
@@ -45,9 +37,7 @@ export default function Portfolio() {
     : PROJECTS;
 
   const projects = sourceProjects.filter((p) => {
-    const matchCategory = category === "all" || p.category === category;
-    const matchStatus = status === "all" || p.status === status;
-    return matchCategory && matchStatus;
+    return category === "all" || p.category === category;
   }) as (ProjectCardData & { sample?: boolean })[];
 
   return (
@@ -56,13 +46,13 @@ export default function Portfolio() {
         <Section className="py-20 lg:py-28">
           <SectionHead
             eyebrow="Portfolio"
-            title="Work, in progress and imagination — clearly labelled."
-            copy="Every project carries an honest status: completed work, sites in progress, or concept visualisations that show design direction. Completed projects are published after handover and client approval."
+            title="Spaces Designed & Delivered."
+            copy="Explore residential and commercial interiors, modular kitchens, bespoke living spaces, and turnkey construction delivered by HILIGHT BUILDERS across Chennai."
           />
 
           {/* Filters */}
           <Reveal delay={0.15}>
-            <div className="mt-12 flex flex-col gap-6 hairline-t pt-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="mt-12 flex flex-col gap-6 hairline-t pt-8">
               <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
                 {["all", ...PROJECT_CATEGORIES].map((c) => (
                   <button
@@ -71,27 +61,11 @@ export default function Portfolio() {
                     aria-pressed={category === c}
                     className={`min-h-[44px] border px-4 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
                       category === c
-                        ? "border-brand bg-brand text-charcoal"
+                        ? "border-brand bg-brand text-charcoal font-semibold"
                         : "border-white/15 text-ash hover:border-white/40 hover:text-bone"
                     }`}
                   >
                     {c === "all" ? "All" : CATEGORY_LABELS[c]}
-                  </button>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by status">
-                {["all", ...PROJECT_STATUSES].map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setStatus(s)}
-                    aria-pressed={status === s}
-                    className={`min-h-[44px] border px-4 font-mono text-[11px] uppercase tracking-[0.16em] transition-colors ${
-                      status === s
-                        ? "border-brand text-brand"
-                        : "border-white/15 text-ash hover:border-white/40 hover:text-bone"
-                    }`}
-                  >
-                    {s === "all" ? "Any Status" : STATUS_LABELS[s]}
                   </button>
                 ))}
               </div>
