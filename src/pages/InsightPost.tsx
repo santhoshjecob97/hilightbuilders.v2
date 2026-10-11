@@ -4,13 +4,16 @@ import { Reveal, Section } from "@/components/Reveal";
 import { CtaBand } from "@/pages/Home";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
+import { POSTS } from "@/data/posts";
 
 export default function InsightPost() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading, error } = trpc.content.posts.bySlug.useQuery(
+  const { data: dbPost, isLoading } = trpc.content.posts.bySlug.useQuery(
     { slug: slug ?? "" },
     { enabled: !!slug, retry: false },
   );
+  const staticPost = POSTS.find((p) => p.slug === slug);
+  const post = dbPost ?? staticPost;
 
   useSeo(
     post ? `${post.title} | HILIGHT BUILDERS Insights` : "Insights | HILIGHT BUILDERS",
@@ -20,7 +23,7 @@ export default function InsightPost() {
   if (isLoading) {
     return <div className="flex min-h-screen items-center justify-center font-mono text-[12px] uppercase tracking-[0.3em] text-ash">Loading…</div>;
   }
-  if (error || !post) {
+  if (!post) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
         <p className="display-3 text-bone">Article not found.</p>
@@ -39,11 +42,13 @@ export default function InsightPost() {
             <p className="eyebrow">{post.category}</p>
             <h1 className="display-2 mt-5 text-bone">{post.title}</h1>
             <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.2em] text-ash">
-              {new Date(post.createdAt).toLocaleDateString("en-IN", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
+              {post.createdAt
+                ? new Date(post.createdAt).toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })
+                : "Editorial Guide"}
             </p>
           </div>
           {post.coverImage && (

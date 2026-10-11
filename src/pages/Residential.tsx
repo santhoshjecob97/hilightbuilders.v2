@@ -5,6 +5,7 @@ import { ProjectCard, type ProjectCardData } from "@/components/ProjectCard";
 import { CtaBand } from "@/pages/Home";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
+import { PROJECTS } from "@/data/projects";
 import {
   Accordion,
   AccordionContent,
@@ -77,9 +78,12 @@ export default function Residential() {
     "Home Interiors in Chennai — Residential Interior Designers | HILIGHT BUILDERS",
     "Complete home interiors, modular kitchens, wardrobes and renovation in Chennai. Transparent estimates and a defined design-to-handover process. Book a consultation.",
   );
-  const { data } = trpc.content.projects.list.useQuery({ category: "residential" });
-  const fallback = trpc.content.projects.list.useQuery(undefined, { enabled: !data });
-  const projects = ((data?.length ? data : fallback.data) ?? [])
+  const { data } = trpc.content.projects.list.useQuery({ category: "residential" }, { retry: false });
+  const fallback = trpc.content.projects.list.useQuery(undefined, { enabled: !data, retry: false });
+  const residentialStatic = PROJECTS.filter((p) =>
+    ["residential", "kitchens", "living-rooms", "bedrooms"].includes(p.category)
+  );
+  const projects = (((data?.length ? data : fallback.data) && (data?.length || fallback.data?.length) ? (data?.length ? data : fallback.data) : residentialStatic) ?? [])
     .filter((p) => ["residential", "kitchens", "living-rooms", "bedrooms"].includes(p.category))
     .slice(0, 3) as ProjectCardData[];
 

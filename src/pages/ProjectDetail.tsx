@@ -4,6 +4,7 @@ import { Reveal, Section } from "@/components/Reveal";
 import { CtaBand } from "@/pages/Home";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
+import { PROJECTS } from "@/data/projects";
 
 const STATUS_LABELS: Record<string, string> = {
   completed: "Completed Project",
@@ -13,10 +14,12 @@ const STATUS_LABELS: Record<string, string> = {
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: project, isLoading, error } = trpc.content.projects.bySlug.useQuery(
+  const { data: dbProject, isLoading } = trpc.content.projects.bySlug.useQuery(
     { slug: slug ?? "" },
     { enabled: !!slug, retry: false },
   );
+  const staticProject = PROJECTS.find((p) => p.slug === slug);
+  const project = dbProject ?? staticProject;
 
   useSeo(
     project ? `${project.title} | HILIGHT BUILDERS` : "Project | HILIGHT BUILDERS",
@@ -26,7 +29,7 @@ export default function ProjectDetail() {
   if (isLoading) {
     return <div className="flex min-h-screen items-center justify-center font-mono text-[12px] uppercase tracking-[0.3em] text-ash">Loading…</div>;
   }
-  if (error || !project) {
+  if (!project) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
         <p className="display-3 text-bone">Project not found.</p>

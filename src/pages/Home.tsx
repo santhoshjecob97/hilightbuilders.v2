@@ -8,6 +8,7 @@ import { ProjectCard, type ProjectCardData } from "@/components/ProjectCard";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
 import { site, whatsappLink } from "@/config";
+import { PROJECTS } from "@/data/projects";
 
 /* ---------------------------------- hero ---------------------------------- */
 
@@ -300,8 +301,9 @@ function Intro() {
 /* ----------------------------- featured projects ---------------------------- */
 
 function FeaturedProjects() {
-  const { data } = trpc.content.projects.list.useQuery({ featured: true });
-  const projects = (data ?? []).slice(0, 4) as (ProjectCardData & { sample: boolean })[];
+  const { data } = trpc.content.projects.list.useQuery({ featured: true }, { retry: false });
+  const featuredStatic = PROJECTS.filter((p) => p.featured);
+  const projects = ((data && data.length > 0 ? data : featuredStatic) as unknown as (ProjectCardData & { sample?: boolean })[]).slice(0, 4);
 
   return (
     <Section className="py-24 lg:py-32">

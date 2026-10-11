@@ -4,13 +4,15 @@ import { Reveal, Section, SectionHead } from "@/components/Reveal";
 import { CtaBand } from "@/pages/Home";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
+import { POSTS } from "@/data/posts";
 
 export default function Insights() {
   useSeo(
     "Insights — Interior Design Guides & Ideas | HILIGHT BUILDERS Chennai",
     "Practical guides on home interiors, modular kitchens, budgets, office planning and renovation from HILIGHT BUILDERS, Chennai.",
   );
-  const { data: posts, isLoading } = trpc.content.posts.list.useQuery();
+  const { data: dbPosts, isLoading } = trpc.content.posts.list.useQuery(undefined, { retry: false });
+  const posts = (dbPosts && dbPosts.length > 0) ? dbPosts : POSTS;
 
   return (
     <>

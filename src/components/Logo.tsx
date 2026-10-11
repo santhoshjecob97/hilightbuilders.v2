@@ -1,18 +1,18 @@
-/** Brand monogram — geometric H with the signature orange bar. */
+/** Official HILIGHT BUILDERS 3D Hexagon Emblem */
 export function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
   return (
-    <svg viewBox="0 0 40 40" className={className} aria-hidden="true">
-      <rect x="4" y="4" width="10" height="32" fill="#F5F3EF" />
-      <rect x="26" y="4" width="10" height="32" fill="#F5F3EF" />
-      <rect x="14" y="15" width="12" height="10" fill="#F39800" />
-    </svg>
+    <img
+      src="/images/logo.png"
+      alt="HILIGHT BUILDERS"
+      className={`${className} object-contain shrink-0`}
+    />
   );
 }
 
 export function Wordmark({ compact = false }: { compact?: boolean }) {
   return (
     <span className="flex items-center gap-3">
-      <LogoMark className={compact ? "h-7 w-7" : "h-9 w-9"} />
+      <LogoMark className={compact ? "h-8 w-8" : "h-10 w-10"} />
       <span className="leading-none">
         <span
           className={`block font-display font-bold tracking-[0.08em] text-bone ${

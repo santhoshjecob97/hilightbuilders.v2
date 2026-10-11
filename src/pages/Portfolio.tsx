@@ -5,6 +5,7 @@ import { CtaBand } from "@/pages/Home";
 import { useSeo } from "@/components/Layout";
 import { trpc } from "@/providers/trpc";
 import { PROJECT_CATEGORIES, PROJECT_STATUSES } from "@contracts/leads";
+import { PROJECTS } from "@/data/projects";
 
 const CATEGORY_LABELS: Record<string, string> = {
   residential: "Residential",
@@ -31,11 +32,23 @@ export default function Portfolio() {
   const [category, setCategory] = useState<string>("all");
   const [status, setStatus] = useState<string>("all");
 
-  const { data, isLoading } = trpc.content.projects.list.useQuery({
-    ...(category !== "all" ? { category: category as never } : {}),
-    ...(status !== "all" ? { status: status as never } : {}),
-  });
-  const projects = (data ?? []) as (ProjectCardData & { sample: boolean })[];
+  const queryResult = trpc.content.projects.list.useQuery(
+    {
+      ...(category !== "all" ? { category: category as never } : {}),
+      ...(status !== "all" ? { status: status as never } : {}),
+    },
+    { retry: false }
+  );
+
+  const sourceProjects = (queryResult.data && queryResult.data.length > 0)
+    ? (queryResult.data as unknown as typeof PROJECTS)
+    : PROJECTS;
+
+  const projects = sourceProjects.filter((p) => {
+    const matchCategory = category === "all" || p.category === category;
+    const matchStatus = status === "all" || p.status === status;
+    return matchCategory && matchStatus;
+  }) as (ProjectCardData & { sample?: boolean })[];
 
   return (
     <>
@@ -86,7 +99,7 @@ export default function Portfolio() {
           </Reveal>
 
           {/* Grid — asymmetric staggered rhythm */}
-          {isLoading ? (
+          {queryResult.isLoading && projects.length === 0 ? (
             <div className="mt-16 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="aspect-[4/3] animate-pulse bg-charcoal-deep" />
